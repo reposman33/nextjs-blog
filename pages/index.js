@@ -1,8 +1,8 @@
-import { getSportedPostData } from "../lib/posts";
 import React from "react";
 import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
 import utilStyles from "../styles/utils.module.css";
+import { getSortedPostsData } from "../lib/posts";
 
 const Home = ({ allPosts }) => {
     return (
@@ -18,8 +18,8 @@ const Home = ({ allPosts }) => {
                 <section className={utilStyles.headingLg} Blog></section>
                 <ul className={utilStyles.list}>
                     {allPosts.map(({ id, date, title }) => (
-                        <li key={post.title} className={utilStyles.listItem}>
-                            {post.date} {post.title}
+                        <li key={id} className={utilStyles.listItem}>
+                            {date} {title}
                         </li>
                     ))}
                 </ul>
