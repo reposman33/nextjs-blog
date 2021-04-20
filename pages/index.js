@@ -12,7 +12,7 @@ const Home = ({ allPosts }) => {
             </Head>
             <section className={utilStyles.headingMd}>
                 <p>
-                    Hello, I'm Marc Baker! I'm a front end developer and Javascript engineer. You can contact me on
+                    Hello, I'm Marc Bakker! I'm a front end developer and Javascript engineer. You can contact me on
                     <a href="www.linkedin.com/in/bakkermarc">LinkedIn</a>
                 </p>
                 <section className={utilStyles.headingLg} Blog></section>
