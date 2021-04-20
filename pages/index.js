@@ -1,10 +1,11 @@
 import React from "react";
 import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
+import { getAllPostIds } from "../lib/posts";
 import utilStyles from "../styles/utils.module.css";
-import { getSortedPostsData } from "../lib/posts";
 
-const Home = ({ allPosts }) => {
+const Home = (postIds) => {
+    console.log("postIds = ", postIds);
     return (
         <Layout home>
             <Head>
@@ -15,11 +16,11 @@ const Home = ({ allPosts }) => {
                     Hello, I'm Marc Bakker! I'm a front end developer and Javascript engineer. You can contact me on
                     <a href="www.linkedin.com/in/bakkermarc">LinkedIn</a>
                 </p>
-                <section className={utilStyles.headingLg} Blog></section>
+                <section className={utilStyles.headingLg}>Blog</section>
                 <ul className={utilStyles.list}>
-                    {allPosts.map(({ id, date, title }) => (
+                    {postIds.map(({ id }) => (
                         <li key={id} className={utilStyles.listItem}>
-                            {date} {title}
+                            {id}
                         </li>
                     ))}
                 </ul>
@@ -32,13 +33,11 @@ const Home = ({ allPosts }) => {
     );
 };
 
-/**
- * this is a function decorated with the async keyword but await is nowhere used. And getSortedPostsData is synchronous is this an error?
- *  */
-const getStaticProps = async () => {
-    const allPosts = getSortedPostsData();
-    return { props: { allPosts } };
+const geStaticProps = async () => {
+    const postIds = getAllPostIds();
+
+    return { props: postIds };
 };
 
 export default Home;
-export { getStaticProps };
+export { geStaticProps };
