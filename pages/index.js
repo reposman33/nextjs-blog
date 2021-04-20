@@ -2,10 +2,10 @@ import React from "react";
 import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
 import { getAllPostIds } from "../lib/posts";
+import Link from "next/link";
 import utilStyles from "../styles/utils.module.css";
 
-const Home = (postIds) => {
-    console.log("postIds = ", postIds);
+const Home = ({ fileIds }) => {
     return (
         <Layout home>
             <Head>
@@ -18,9 +18,11 @@ const Home = (postIds) => {
                 </p>
                 <section className={utilStyles.headingLg}>Blog</section>
                 <ul className={utilStyles.list}>
-                    {postIds.map(({ id }) => (
+                    {Object.values(fileIds).map(({ id }) => (
                         <li key={id} className={utilStyles.listItem}>
-                            {id}
+                            <Link href={`/${id}`}>
+                                <a href={`/${id}`}>{id}</a>
+                            </Link>
                         </li>
                     ))}
                 </ul>
@@ -33,11 +35,10 @@ const Home = (postIds) => {
     );
 };
 
-const geStaticProps = async () => {
-    const postIds = getAllPostIds();
-
-    return { props: postIds };
+const getStaticProps = async () => {
+    const fileIds = getAllPostIds();
+    return { props: { fileIds } };
 };
 
 export default Home;
-export { geStaticProps };
+export { getStaticProps };
