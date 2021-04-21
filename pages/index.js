@@ -1,12 +1,12 @@
 import React from "react";
 import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
-import { getAllPostIds } from "../lib/posts";
+import { getSortedPostsData } from "../lib/posts";
 import Link from "next/link";
+import Date from "../components/date";
 import utilStyles from "../styles/utils.module.css";
 
-const Home = ({ fileIds }) => {
-    console.log("fileIds = ", fileIds);
+const Home = ({ sortedPostData }) => {
     return (
         <Layout home>
             <Head>
@@ -19,11 +19,16 @@ const Home = ({ fileIds }) => {
                 </p>
                 <section className={utilStyles.headingLg}>Blog</section>
                 <ul className={utilStyles.list}>
-                    {Object.values(fileIds).map(({ params }) => (
-                        <li key={params.id} className={utilStyles.listItem}>
-                            <Link href={`/posts/${params.id}`}>
-                                <a>{params.id}</a>
+                    {sortedPostData.map(({ id, title, date }) => (
+                        <li key={id} className={utilStyles.listItem}>
+                            <Link href={`/posts/${id}`}>
+                                <a>{title}</a>
                             </Link>
+                            <div>
+                                <span className={utilStyles.lightText}>
+                                    <Date dateString={date} />
+                                </span>
+                            </div>
                         </li>
                     ))}
                 </ul>
@@ -37,8 +42,8 @@ const Home = ({ fileIds }) => {
 };
 
 const getStaticProps = async () => {
-    const fileIds = getAllPostIds();
-    return { props: { fileIds } };
+    const sortedPostData = getSortedPostsData();
+    return { props: { sortedPostData } };
 };
 
 export default Home;
