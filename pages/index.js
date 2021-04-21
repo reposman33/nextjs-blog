@@ -6,6 +6,7 @@ import Link from "next/link";
 import utilStyles from "../styles/utils.module.css";
 
 const Home = ({ fileIds }) => {
+    console.log("fileIds = ", fileIds);
     return (
         <Layout home>
             <Head>
@@ -18,10 +19,10 @@ const Home = ({ fileIds }) => {
                 </p>
                 <section className={utilStyles.headingLg}>Blog</section>
                 <ul className={utilStyles.list}>
-                    {Object.values(fileIds).map(({ id }) => (
-                        <li key={id} className={utilStyles.listItem}>
-                            <Link href={`/${id}`}>
-                                <a href={`/${id}`}>{id}</a>
+                    {Object.values(fileIds).map(({ params }) => (
+                        <li key={params.id} className={utilStyles.listItem}>
+                            <Link href={`/posts/${params.id}`}>
+                                <a>{params.id}</a>
                             </Link>
                         </li>
                     ))}
